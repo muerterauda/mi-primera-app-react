@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
-import Hello from "./tsx/Hello";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-      <Hello name="TypeScript" enthusiasmLevel={20} />
   </React.StrictMode>,
   document.getElementById('root')
 );
