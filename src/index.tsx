@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import * as serviceWorker from './serviceWorker';
+import ListadoCartas from "./tsx/ListadoCartas";
 
 ReactDOM.render(
   <React.StrictMode>
+    <ListadoCartas url={"https://api.rawg.io/api/games?limit=10&page=1&page_size=10&search=witcher"}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
