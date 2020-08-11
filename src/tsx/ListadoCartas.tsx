@@ -8,10 +8,9 @@ type Props = {
 type Data = {
     error: any,
     isLoaded: boolean,
-    metadata: {},
+    metadata: any,
     items: []
 }
-
 
 
 export default class ListadoCartas extends React.Component<Props, Data> {
@@ -41,9 +40,6 @@ export default class ListadoCartas extends React.Component<Props, Data> {
                         metadata: metadataI
                     });
                 },
-                // Nota: es importante manejar errores aquí y no en
-                // un bloque catch() para que no interceptemos errores
-                // de errores reales en los componentes.
                 (error) => {
                     this.setState({
                         isLoaded: true,
@@ -54,36 +50,35 @@ export default class ListadoCartas extends React.Component<Props, Data> {
     }
 
     render() {
-        const { error, isLoaded, metadata, items } = this.state;
+        const {error, isLoaded, metadata, items} = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
-            let btns;
-            // if(metadata["previous"] === null){
-            //
-            // }else{
-            //
-            // }
             return (
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row">
-
-                    </div>
-                    <div className="row">
-                    {items.map(item => (
-                        <div className="col-3 mt-2">
-                            <div className="card wcard">
-                                <img className="card-img-top" height="160" src={item['background_image']} alt="Portada videojuego" />
-                                <div className="card-body">
-                                    <h5 className="card-title">{item['name']}</h5>
-                                    <p className="card-text">{item['released']}</p>
-                                    <a href="#" className="btn btn-primary">Link to game</a>
+                        <div className="col-8 offset-2">
+                            <div className="row">
+                                <div className="card-deck">
+                                    {items.map(item => (
+                                        <div className="mt-2">
+                                            <div className="card wcard">
+                                                <img className="card-img-top" height="160"
+                                                     src={item['background_image']}
+                                                     alt="Portada videojuego"/>
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{item['name']}</h5>
+                                                    <p className="card-text">{item['released']}</p>
+                                                    <a href="#" className="btn btn-primary">Link to game</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
-                    ))}
                     </div>
                 </div>
             );
