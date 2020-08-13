@@ -14,7 +14,6 @@ type Data = {
 
 
 export default class ListadoCartas extends React.Component<Props, Data> {
-    private listadoCartas: any;
 
     constructor(props: Props) {
         super(props);

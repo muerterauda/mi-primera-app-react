@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import * as serviceWorker from './serviceWorker';
-import ListadoCartas from "./tsx/ListadoCartas";
+import AppPagination from "./tsx/AppPagination";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ListadoCartas url={"https://api.rawg.io/api/games?limit=10&page=1&page_size=10&search=witcher"}/>
+    <AppPagination url={"https://api.rawg.io/api/games?limit=30&page=1&page_size=30&search=assasin"}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
