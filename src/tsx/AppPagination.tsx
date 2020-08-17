@@ -44,8 +44,8 @@ export default class AppPagination extends React.Component<PropsAppPagination, S
                 (result) => {
                     let lista = result.results;
                     let count = result['count'];
-                    if(typeof lista === 'undefined') lista = []
-                    if(typeof count === 'undefined') count = 0
+                    if (typeof lista === 'undefined') lista = []
+                    if (typeof count === 'undefined') count = 0
                     this.setState({
                         currentVideojuegos: lista,
                         currentPage: Math.min(1, count),
@@ -63,17 +63,17 @@ export default class AppPagination extends React.Component<PropsAppPagination, S
             )
     }
 
-    onInputSearch(e:any) {
+    onInputSearch(e: any) {
         let search = e.target.value;
         this.setState({isLoaded: false})
-        fetch(this.props.url + '?limit=' + this.state.limit.toString() + '&page=1&page_size=' + this.state.limit.toString() + '&search=' +  search)
+        fetch(this.props.url + '?limit=' + this.state.limit.toString() + '&page=1&page_size=' + this.state.limit.toString() + '&search=' + search)
             .then(res => res.json())
             .then(
                 (result) => {
                     let lista = result.results;
                     let count = result['count'];
-                    if(typeof lista === 'undefined') lista = []
-                    if(typeof count === 'undefined') count = 0
+                    if (typeof lista === 'undefined') lista = []
+                    if (typeof count === 'undefined') count = 0
                     this.setState({
                         currentVideojuegos: lista,
                         currentPage: Math.min(1, count),
@@ -102,8 +102,8 @@ export default class AppPagination extends React.Component<PropsAppPagination, S
                 (result) => {
                     let lista = result.results;
                     let count = result['count'];
-                    if(typeof lista === 'undefined') lista = []
-                    if(typeof count === 'undefined') count = 0
+                    if (typeof lista === 'undefined') lista = []
+                    if (typeof count === 'undefined') count = 0
                     this.setState({
                         totalVideojuegos: count,
                         totalPages: Math.ceil(count / this.state.limit),
@@ -127,59 +127,53 @@ export default class AppPagination extends React.Component<PropsAppPagination, S
             return (<div>Error: {this.state.error.message}</div>)
         } else {
             if (this.state.currentVideojuegos.length === 0) {
-                if(this.state.isLoaded){
+                if (this.state.isLoaded) {
                     return (
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-8 offset-2">
-                                    <div
-                                        className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
-                                        <div className="d-flex flex-row align-items-center">
-                                            <input className="form-control mr-sm-2 tam" type="search" placeholder="B&uacute;queda"
-                                                   aria-label="Search"  onChange={this.onInputSearch}/>
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center">
-                                            <h2><strong
-                                                className="text-secondary">0</strong> Videojuegos
-                                            </h2>
-
-                                            <span className="current-page d-inline-block h-100 pl-4 text-secondary">
-                  P&aacute;gina <span className="font-weight-bold">0</span> / <span
-                                                className="font-weight-bold">0</span></span>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <h1>No hay videojuegos</h1>
-                                    </div>
+                        <div>
+                            <div
+                                className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
+                                <div className="d-flex flex-row align-items-center">
+                                    <input className="form-control mr-sm-2 tam" type="search"
+                                           placeholder="B&uacute;queda"
+                                           aria-label="Search" onChange={this.onInputSearch}/>
                                 </div>
+                                <div className="d-flex flex-row align-items-center">
+                                    <h2><strong
+                                        className="text-secondary">0</strong> Videojuegos
+                                    </h2>
+
+                                    <span className="current-page d-inline-block h-100 pl-4 text-secondary">
+                  P&aacute;gina <span className="font-weight-bold">0</span> / <span
+                                        className="font-weight-bold">0</span></span>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <h1>No hay videojuegos</h1>
                             </div>
                         </div>
                     )
-                }else{
+                } else {
                     return (
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-8 offset-2">
-                                    <div
-                                        className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
-                                        <div className="d-flex flex-row align-items-center">
-                                            <input className="form-control mr-sm-2 tam" type="search" placeholder="B&uacute;queda"
-                                                   aria-label="Search"  onChange={this.onInputSearch}/>
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center">
-                                            <h2><strong
-                                                className="text-secondary">0</strong> Videojuegos
-                                            </h2>
-
-                                            <span className="current-page d-inline-block h-100 pl-4 text-secondary">
-                  P&aacute;gina <span className="font-weight-bold">0</span> / <span
-                                                className="font-weight-bold">0</span></span>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <h1>Cargando...</h1>
-                                    </div>
+                        <div>
+                            <div
+                                className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
+                                <div className="d-flex flex-row align-items-center">
+                                    <input className="form-control mr-sm-2 tam" type="search"
+                                           placeholder="B&uacute;queda"
+                                           aria-label="Search" onChange={this.onInputSearch}/>
                                 </div>
+                                <div className="d-flex flex-row align-items-center">
+                                    <h2><strong
+                                        className="text-secondary">0</strong> Videojuegos
+                                    </h2>
+
+                                    <span className="current-page d-inline-block h-100 pl-4 text-secondary">
+                  P&aacute;gina <span className="font-weight-bold">0</span> / <span
+                                        className="font-weight-bold">0</span></span>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <h1>Cargando...</h1>
                             </div>
                         </div>
                     )
@@ -187,47 +181,43 @@ export default class AppPagination extends React.Component<PropsAppPagination, S
 
             } else {
                 return (
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-8 offset-2 mb-4">
-                                <div
-                                    className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
-                                    <div className="d-flex flex-row align-items-center">
-                                        <input className="form-control mr-sm-2 tam" type="search" placeholder="B&uacute;queda"
-                                               aria-label="Search" onChange={this.onInputSearch}/>
-                                    </div>
-                                    <div className="d-flex flex-row align-items-center">
-                                        <h2><strong
-                                            className="text-secondary">{this.state.totalVideojuegos}</strong> Videojuegos
-                                        </h2>
+                    <div>
+                        <div
+                            className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
+                            <div className="d-flex flex-row align-items-center">
+                                <input className="form-control mr-sm-2 tam" type="search" placeholder="B&uacute;queda"
+                                       aria-label="Search" onChange={this.onInputSearch}/>
+                            </div>
+                            <div className="d-flex flex-row align-items-center">
+                                <h2><strong
+                                    className="text-secondary">{this.state.totalVideojuegos}</strong> Videojuegos
+                                </h2>
 
-                                        {this.state.currentPage && (
-                                            <span className="current-page d-inline-block h-100 pl-4 text-secondary">
+                                {this.state.currentPage && (
+                                    <span className="current-page d-inline-block h-100 pl-4 text-secondary">
                   P&aacute;gina <span className="font-weight-bold">{this.state.currentPage}</span> / <span
-                                                className="font-weight-bold">{this.state.totalPages}</span>
+                                        className="font-weight-bold">{this.state.totalPages}</span>
                 </span>
-                                        )}
+                                )}
 
-                                    </div>
+                            </div>
 
-                                    <div className="d-flex flex-row py-4 align-items-center">
-                                        <Pagination totalRecords={this.state.totalVideojuegos} pageLimit={this.state.limit}
-                                                    pageNeighbours={1}
-                                                    onChange={this.onPageChanged}/>
-                                    </div>
-                                </div>
+                            <div className="d-flex flex-row py-4 align-items-center">
+                                <Pagination totalRecords={this.state.totalVideojuegos} pageLimit={this.state.limit}
+                                            pageNeighbours={1}
+                                            onChange={this.onPageChanged}/>
+                            </div>
+                        </div>
 
-                                <div className="row">
-                                    <div className="card-deck">
-                                        {!this.state.isLoaded && <h2>Cargando...</h2>}
-                                        {this.state.isLoaded && this.state.currentVideojuegos.map((v, index) =>
-                                            <VideojuegoCard
-                                                urlImage={v['background_image']}
-                                                nombre={v['name']}
-                                                fechaSalida={new Date(v['released'])}
-                                                id={v['id']} key={index}/>)}
-                                    </div>
-                                </div>
+                        <div className="row">
+                            <div className="card-deck">
+                                {!this.state.isLoaded && <h2>Cargando...</h2>}
+                                {this.state.isLoaded && this.state.currentVideojuegos.map((v, index) =>
+                                    <VideojuegoCard
+                                        urlImage={v['background_image']}
+                                        nombre={v['name']}
+                                        fechaSalida={new Date(v['released'])}
+                                        id={v['id']} key={index}/>)}
                             </div>
                         </div>
                     </div>
