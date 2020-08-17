@@ -48,7 +48,7 @@ export default class AppPagination extends React.Component<PropsAppPagination, S
                     if(typeof count === 'undefined') count = 0
                     this.setState({
                         currentVideojuegos: lista,
-                        currentPage: 1,
+                        currentPage: Math.min(1, count),
                         totalVideojuegos: count,
                         totalPages: Math.ceil(count / this.state.limit),
                         isLoaded: true,
@@ -64,15 +64,33 @@ export default class AppPagination extends React.Component<PropsAppPagination, S
     }
 
     onInputSearch(e:any) {
-        this.setState({
-            currentVideojuegos: [],
-            isLoaded: false,
-            currentPage:0,
-            totalVideojuegos:0,
-            totalPages:0,
-            search: e.target.value
-        })
-        this.componentDidMount();
+        let search = e.target.value;
+        this.setState({isLoaded: false})
+        fetch(this.props.url + '?limit=' + this.state.limit.toString() + '&page=1&page_size=' + this.state.limit.toString() + '&search=' +  search)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    let lista = result.results;
+                    let count = result['count'];
+                    if(typeof lista === 'undefined') lista = []
+                    if(typeof count === 'undefined') count = 0
+                    this.setState({
+                        currentVideojuegos: lista,
+                        currentPage: Math.min(1, count),
+                        totalVideojuegos: count,
+                        totalPages: Math.ceil(count / this.state.limit),
+                        isLoaded: true,
+                        search: search
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        search: search,
+                        error
+                    });
+                }
+            )
     }
 
     onPageChanged(data: any) {
@@ -109,39 +127,69 @@ export default class AppPagination extends React.Component<PropsAppPagination, S
             return (<div>Error: {this.state.error.message}</div>)
         } else {
             if (this.state.currentVideojuegos.length === 0) {
-                return (
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-8 offset-2">
-                                <div
-                                    className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
-                                    <div className="d-flex flex-row align-items-center">
-                                        <input className="form-control mr-sm-2 tam" type="search" placeholder="B&uacute;queda"
-                                               aria-label="Search"  onChange={this.onInputSearch}/>
-                                    </div>
-                                    <div className="d-flex flex-row align-items-center">
-                                        <h2><strong
-                                            className="text-secondary">0</strong> Videojuegos
-                                        </h2>
+                if(this.state.isLoaded){
+                    return (
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-8 offset-2">
+                                    <div
+                                        className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
+                                        <div className="d-flex flex-row align-items-center">
+                                            <input className="form-control mr-sm-2 tam" type="search" placeholder="B&uacute;queda"
+                                                   aria-label="Search"  onChange={this.onInputSearch}/>
+                                        </div>
+                                        <div className="d-flex flex-row align-items-center">
+                                            <h2><strong
+                                                className="text-secondary">0</strong> Videojuegos
+                                            </h2>
 
                                             <span className="current-page d-inline-block h-100 pl-4 text-secondary">
                   P&aacute;gina <span className="font-weight-bold">0</span> / <span
                                                 className="font-weight-bold">0</span></span>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div className="row">
-                                    <h1>No hay videojuegos</h1>
+                                    <div className="row">
+                                        <h1>No hay videojuegos</h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )
+                    )
+                }else{
+                    return (
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-8 offset-2">
+                                    <div
+                                        className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
+                                        <div className="d-flex flex-row align-items-center">
+                                            <input className="form-control mr-sm-2 tam" type="search" placeholder="B&uacute;queda"
+                                                   aria-label="Search"  onChange={this.onInputSearch}/>
+                                        </div>
+                                        <div className="d-flex flex-row align-items-center">
+                                            <h2><strong
+                                                className="text-secondary">0</strong> Videojuegos
+                                            </h2>
+
+                                            <span className="current-page d-inline-block h-100 pl-4 text-secondary">
+                  P&aacute;gina <span className="font-weight-bold">0</span> / <span
+                                                className="font-weight-bold">0</span></span>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <h1>Cargando...</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+
             } else {
                 return (
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-8 offset-2">
+                            <div className="col-8 offset-2 mb-4">
                                 <div
                                     className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
                                     <div className="d-flex flex-row align-items-center">
@@ -176,7 +224,7 @@ export default class AppPagination extends React.Component<PropsAppPagination, S
                                             <VideojuegoCard
                                                 urlImage={v['background_image']}
                                                 nombre={v['name']}
-                                                fechaSalida={v['released']}
+                                                fechaSalida={new Date(v['released'])}
                                                 id={v['id']} key={index}/>)}
                                     </div>
                                 </div>

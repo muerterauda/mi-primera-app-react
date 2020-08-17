@@ -5,10 +5,10 @@ type PropsCardVideojuego = {
     urlImage: string,
     nombre: string,
     id: number,
-    fechaSalida: string
+    fechaSalida: Date
 }
 
-export default class ListadoCartas extends React.Component<PropsCardVideojuego> {
+export default class VideojuegoCard extends React.Component<PropsCardVideojuego> {
     render(){
         return(
             <div className="mt-2">
@@ -18,8 +18,8 @@ export default class ListadoCartas extends React.Component<PropsCardVideojuego> 
                          alt={"Portada del videojuego "+this.props.nombre}/>
                     <div className="card-body">
                         <h5 className="card-title">{this.props.nombre}</h5>
-                        <p className="card-text">{this.props.fechaSalida}</p>
-                        <a href="#" className="btn btn-primary">Link to game</a>
+                        <p className="card-text">Fecha de salida: {this.props.fechaSalida.toLocaleDateString()}</p>
+                        <a href="#" className="btn btn-primary">Enlace al juego</a>
                     </div>
                 </div>
             </div>
