@@ -6,7 +6,7 @@ import AppPagination from "./tsx/AppPagination";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppPagination url={"https://api.rawg.io/api/games?limit=30&page=1&page_size=30&search=assasin"}/>
+    <AppPagination url={"https://api.rawg.io/api/games"}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
